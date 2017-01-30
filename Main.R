@@ -14,6 +14,7 @@ source("Rfunctions/packageloader.R")
 source("Rfunctions/setBaseOSM.R")
 source("Rfunctions/findRoute.R")
 source("Rfunctions/CalculateAltitude.R")
+source("Rfunctions/nodeDiff.R")
 
 ## Load packages
 packages <- c("osmar", "rgdal", "raster", "igraph")
@@ -36,4 +37,7 @@ route_points <- findRoute(51.9817026,5.6483571, 51.965421, 5.659061)
 
   # Extract altitude from the nodes
 alt <- altitude(route_points)
-
+  
+  # Calculate the total difference
+diff <- nodeDiff(alt)
+sum(diff)
