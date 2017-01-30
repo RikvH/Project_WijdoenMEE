@@ -1,62 +1,77 @@
-#rm(list=ls())
-library(osmar)
-library(igraph)
-
-src <- osmsource_api()
-ref <- c(5.672035, 51.975332, 1500, 1500)
-wag_bbox <- center_bbox(ref[1], ref[2], ref[3], ref[4])
-wag <- get_osm(wag_bbox, src)
+###################################
+## Wij doen MEE                  ##
+## Rik van Heumen & Dillen Bruil ##
+## 27 January 2017               ##
+###################################
 
 
-#findRoute <- function (start_lat, start_lon, dest_lat, dest_lon){
+# library(osmar)
+# library(igraph)
+
+# A function to calculate the shortest route from A to B over the "higroads" and "cycleways" defined 
+# by Open Street Map
+
+
+findRoute <- function (start_lat, start_lon, dest_lat, dest_lon){
   
-  hways_wag <- subset(wag, way_ids=find(wag, way(tags(k == "highway"))))
-  hways <- find(hways_wag, way(tags(k == "name")))
-  hways <- find_down(wag, way(hways))
-  hways_wag <- subset(wag, ids = hways)
+  # Criteria which roads should be matched
+  crit <- way(tags(k == "highway" | k == "cycleway"))
   
-  hway_start_node <- local({ 
+  # Subset the roads 
+  # May be deleted when not plotted
+  roads_wag <- subset(wag, way_ids=find(wag, crit))
+  roads <- find(roads_wag, way(tags(k == "name")))
+  roads <- find_down(wag, way(roads))
+  roads_wag <- subset(wag, ids = roads)
+  
+  # Find start node
+  road_start_node <- local({ 
     id <- find(wag, node(attrs(lon > start_lon  & lat > start_lat )))[1]
-    find_nearest_node(wag, id, way(tags(k == "highway")))})
-  hway_start <- subset(wag, node(hway_start_node))
+    find_nearest_node(wag, id, crit)})
+  road_start <- subset(wag, node(road_start_node))
   
-  hway_dest_node <- local({
+  # Find destination node
+  road_dest_node <- local({
     id <- find(wag, node(attrs(lon > dest_lon & lat > dest_lat )))[1]
-    find_nearest_node(wag, id, way(tags(k == "highway")))})
-  hway_dest <- subset(wag, node(hway_dest_node))
+    find_nearest_node(wag, id, crit)})
+  road_dest <- subset(wag, node(road_dest_node))
   
+  # Plotting
   plot_nodes(wag, col = "gray", pch = "." )
-  plot_ways(hways_wag, add = T)
-  plot_nodes(hways_wag, add = T, col = "black", pch = ".", cex = 2)
-  plot_nodes(hway_start, add = T, col = "red", pch = ".", cex = 6)
-  plot_nodes(hway_dest, add = T, col = "blue", pch = ".", cex = 6)
+  plot_ways(roads_wag, add = T)
+  plot_nodes(roads_wag, add = T, col = "black", pch = ".", cex = 2)
+  plot_nodes(road_start, add = T, col = "red", pch = ".", cex = 6)
+  plot_nodes(road_dest, add = T, col = "blue", pch = ".", cex = 6)
   
-  gr_wag <- as_igraph(hways_wag)
+  # Making the graph
+  gr_wag <- as_igraph(roads_wag)
   
-  ifrom <- as.character(hway_start_node)
-  ito <- as.character(hway_dest_node)
+  # Setting the start and destination nodes for the graph
+  istart <- as.character(road_start_node)
+  idest <- as.character(road_dest_node)
   
-  route <- get.shortest.paths(gr_wag, ifrom, ito)[[1]]
-  
+  # Create the shortest path
+  route <- get.shortest.paths(gr_wag, istart, idest)[[1]]
   for (i in route){
     route_nodes <- as.numeric(V(gr_wag)[i]$name)
   }
   
-  route_ids <- find_up(hways_wag, node(route_nodes))
-  route_wag <- subset(hways_wag, ids = route_ids)
-  route_wag
+  # Find the nodes and ways needed for the shortest route
+  route_ids <- find_up(roads_wag, node(route_nodes))
+  route_wag <- subset(roads_wag, ids = route_ids)
   
-  plot_nodes(route_wag, add=T, col="green")
+  # Plot it to to previous plots
+  plot_nodes(route_wag, add=T, col="green", pch = ".", cex = 4)
   plot_ways(route_wag, add=T, col="green")
-#}
+  
+  # Make a spatial point data frame from the route 
+  route_points <- as_sp(route_wag, "points")
+}
 
-#findRoute(51.9784473, 5.6629253, 51.9676534, 5.6683752)
-start_lat <- 51.9709465
-start_lon <- 5.6689275
-dest_lat <- 51.978103
-dest_lon <- 5.6713907
-# 
-# start_lat <- 51.9784473
-# start_lon <- 5.6629253
-# dest_lat <- 51.9676534
-# dest_lon <- 5.6683752
+
+
+findRoute(51.9709465, 5.6689275, 51.978103, 5.6713907)
+
+#this one will fail
+#findRoute(51.9770748, 5.6751353, 51.9784534, 5.6683752)
+
