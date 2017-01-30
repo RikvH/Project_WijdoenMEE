@@ -11,8 +11,12 @@
 
 ## Load functions
 source("Rfunctions/packageloader.R")
+source("CalculateAltitude.R")
 
 ## Load packages
-packages <- c("osmar", "sp")
+packages <- c("osmar", "sp", "raster")
 packageloader(packages)
 
+## Load data
+ned <- getData('SRTM', lon = 5, lat = 51)
+nedcrop <- crop(ned, c(5.65, 5.7,51.965, 51.99))
