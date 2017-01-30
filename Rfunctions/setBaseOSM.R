@@ -1,7 +1,7 @@
 ###################################
 ## Wij doen MEE                  ##
 ## Rik van Heumen & Dillen Bruil ##
-## 27 January 2017               ##
+## 30 January 2017               ##
 ###################################
 
 # Function to set the basemap from Open Street Map
@@ -15,4 +15,3 @@ setBaseOSM <- function(center_lat, center_lon, width, height){
 }
   
 
-# setBaseOSM(5.672035, 51.975332, 1700, 1700)

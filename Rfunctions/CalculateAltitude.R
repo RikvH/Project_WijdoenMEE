@@ -11,13 +11,8 @@
 altitude <- function(routepoints){
   projroute <- spTransform(routepoints, CRS(proj4string(ned)))
   alt <- extract(nedcrop, projroute, along = TRUE)
-  min <- min(alt)
-  min
-  max <- max(alt)
-  max
-  dif_ver <- max - min
-  dif_ver
   plot(alt, type = 'l', ylab = "Altitude (m)")
+  return (alt)
 }
 
 

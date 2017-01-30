@@ -1,12 +1,8 @@
 ###################################
 ## Wij doen MEE                  ##
 ## Rik van Heumen & Dillen Bruil ##
-## 27 January 2017               ##
+## 30 January 2017               ##
 ###################################
-
-
-# library(osmar)
-# library(igraph)
 
 # A function to calculate the shortest route from A to B over the "higroads" and "cycleways" defined 
 # by Open Street Map
@@ -51,7 +47,7 @@ findRoute <- function (start_lat, start_lon, dest_lat, dest_lon){
   idest <- as.character(road_dest_node)
   
   # Create the shortest path
-  route <- get.shortest.paths(gr_wag, istart, idest)[[1]]
+  route <- get.shortest.paths(gr_wag, istart, idest, mode="all")[[1]]
   for (i in route){
     route_nodes <- as.numeric(V(gr_wag)[i]$name)
   }
@@ -66,12 +62,8 @@ findRoute <- function (start_lat, start_lon, dest_lat, dest_lon){
   
   # Make a spatial point data frame from the route 
   route_points <- as_sp(route_wag, "points")
+  #return (route_points)
 }
 
 
-
-findRoute(51.9709465, 5.6689275, 51.978103, 5.6713907)
-
-#this one will fail
-#findRoute(51.9770748, 5.6751353, 51.9784534, 5.6683752)
 
