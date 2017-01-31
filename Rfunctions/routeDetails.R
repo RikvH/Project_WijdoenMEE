@@ -1,3 +1,11 @@
+###################################
+## Wij doen MEE                  ##
+## Rik van Heumen & Dillen Bruil ##
+## 31 January 2017               ##
+###################################
+
+## Fucntion to create a data frame with route details
+
 routeDetails <- function(route){
   
   # Extract the node id's which are in the correct order of the route
@@ -50,7 +58,10 @@ routeDetails <- function(route){
              "14" = "NW",
              "15" = "NNW",
              "16" = "N"
-      )} sapply(round(bearing / 22.5), dir)}
+      )
+      } 
+    sapply(round(bearing / 22.5), dir)
+    }
   
   # Create data frame
   route_details <- data.frame(way_names, node_dirs)
@@ -60,6 +71,8 @@ routeDetails <- function(route){
   route_details$cdist <- cumsum(route_details$dist)
   # Calculate and add compass direction to the data frame
   route_details$dir <- compass(route_details$bear)
-}
+  # Return data frame with route details
+  return(route_details)
+  }
 
 
