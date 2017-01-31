@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "###################################\n## Wij doen MEE                  ##\n## Rik van Heumen & Dillen Bruil ##\n## 31 January 2017               ##\n###################################\n\n# Fuction to calculate the toughness of the route for each section of the route\n# Vertical distance travelled is divided by the horizontal distance traveled\n\n\ntoughness <- function(vdist, hdist){\n  \n  hdist <- as.vector(hdist)\n  hdist <- hdist[-1]\n  \n  \n  # Check if the length of the vdist and hdist vectors are equal if not abort\n  if (length(vdist) != length(hdist)){\n    stop(\"length is not equal\")\n  } else {\n    \n    # Divide negative values in the vdist by 2. Negative values indicate a downhill sections\n    # and these weigh less then uphill sections\n    for (i in 1:length(vdist)){\n      if (vdist[i] < 0){\n        vdist[i] = vdist[i]/2\n      } \n    }\n    \n    # Calculate the toughness for each section\n    toughness <- (vdist/ hdist)\n  }\n}\n\n\n",
+    "created" : 1485857192237.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "121942341",
+    "id" : "B5AD673",
+    "lastKnownWriteTime" : 1485857902,
+    "last_content_update" : 1485857902042,
+    "path" : "~/WUR/MEE/GeoScripting/Project/Rfunctions/toughness.R",
+    "project_path" : "Rfunctions/toughness.R",
+    "properties" : {
+    },
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

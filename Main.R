@@ -8,9 +8,11 @@
 ###        Period 3 - 2017        ###
 #####################################
 
+rm(list=ls())
 
 ## Load functions
 source("Rfunctions/packageloader.R")
+source("Rfunctions/cropAlt.R")
 source("Rfunctions/setBaseOSM.R")
 source("Rfunctions/findRoute.R")
 source("Rfunctions/routeDetails.R")
@@ -19,19 +21,22 @@ source("Rfunctions/nodeDiff.R")
 source("Rfunctions/toughness.R")
 
 ## Load packages
-packages <- c("osmar", "rgdal", "raster", "igraph", "geosphere")
+packages <- c("osmar", "rgdal", "raster", "igraph")
 packageloader(packages)
 
 ## Load data
-ned <- getData('SRTM', lon = 5, lat = 51)
-nedcrop <- crop(ned, c(5.65, 5.7,51.965, 51.99))
+# Center coordinates:
+ext <- c(50.861065, 5.833611)
+
+# Create height map
+nedCrop <- cropAlt(ext)
 
 ## General Part
-# Set area
-#wag <- setBaseOSM(5.672035, 51.975332, 1700, 1700)
-  
+loc <- setBaseOSM(ext)
+
+
 # Find shortest route
-route <- findRoute(51.9709465, 5.6689275, 51.978103, 5.6713907)
+route <- findRoute("Gosewijnstraat", "Neerhem")
 #route <- findRoute(51.9700752,5.6681647, 51.965421, 5.659061)
 
 # Create dataframe with the route details
@@ -50,3 +55,6 @@ sum(vdist)
 # Calculate the toughness
 tough <- toughness(vdist, route_details$dist)
 tough
+
+plot(nedCrop)
+plot(route_points, add=T)

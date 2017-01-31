@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "###################################\n## Wij doen MEE                  ##\n## Rik van Heumen & Dillen Bruil ##\n## 31 January 2017               ##\n###################################\n\n# Function to crop the height map to a smaller extent\n# Extent based on the extent of the graph\n\ncropAlt <- function (ext){\n  extent <- c(ext[1]-0.015, ext[1]+0.015, ext[2]-0.03, ext[2]+0.03)\n  ned <- getData('SRTM', lon = 5, lat = 51, path = \"Data\")\n  nedcrop <- crop(ned, extent(extent[3], extent[4], extent[1], extent[2]))\n  return (nedcrop)\n}",
+    "created" : 1485875186572.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1856534252",
+    "id" : "E9536102",
+    "lastKnownWriteTime" : 1485877570,
+    "last_content_update" : 1485877570064,
+    "path" : "~/WUR/MEE/GeoScripting/Project/Rfunctions/cropAlt.R",
+    "project_path" : "Rfunctions/cropAlt.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 7,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

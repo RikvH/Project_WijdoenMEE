@@ -6,12 +6,14 @@
 
 # Function to set the basemap from Open Street Map
 
-# Maps the inserted width and height around the center coordinates
+# Maps between the inserted lat and lon extremes as a vector
 
-setBaseOSM <- function(center_lat, center_lon, width, height){
+# Format extent: lon_min, lon_max, lat_min, lat_max
+
+setBaseOSM <- function(extent){
+  
   src <- osmsource_api()
-  wag_bbox <- center_bbox(center_lat, center_lon, width, height)
-  wag <- get_osm(wag_bbox, src)
+  bbox <- center_bbox(extent[2], extent[1], 1700,1700)
+  loc <- get_osm(bbox, source=src)
 }
   
-
