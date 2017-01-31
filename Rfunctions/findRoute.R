@@ -41,28 +41,26 @@ findRoute <- function (start_lat, start_lon, dest_lat, dest_lon){
   
   # Making the graph
   gr_wag <- as_igraph(roads_wag)
-  
+
   # Setting the start and destination nodes for the graph
   istart <- as.character(road_start_node)
   idest <- as.character(road_dest_node)
   
   # Create the shortest path
-  route <- get.shortest.paths(gr_wag, istart, idest, mode="all")[[1]]
-  for (i in route){
-    route_nodes <- as.numeric(V(gr_wag)[i]$name)
+  shortpath <- get.shortest.paths(gr_wag, istart, idest, mode="all")[[1]]
+  for (i in shortpath){
+    shortpath_nodes <- as.numeric(V(gr_wag)[i]$name)
   }
   
   # Find the nodes and ways needed for the shortest route
-  route_ids <- find_up(roads_wag, node(route_nodes))
-  route_wag <- subset(roads_wag, ids = route_ids)
+  route_ids <- find_up(roads_wag, node(shortpath_nodes))
+  route <- subset(roads_wag, ids = route_ids)
   
   # Plot it to to previous plots
-  plot_nodes(route_wag, add=T, col="green", pch = ".", cex = 4)
-  plot_ways(route_wag, add=T, col="green")
+  plot_nodes(route, add=T, col="green", pch = ".", cex = 4)
+  plot_ways(route, add=T, col="green")
   
-  # Make a spatial point data frame from the route 
-  route_points <- as_sp(route_wag, "points")
-  #return (route_points)
+  return (route)
 }
 
 
