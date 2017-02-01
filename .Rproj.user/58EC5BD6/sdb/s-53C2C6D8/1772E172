@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "\n\noverwrite <- function(){\n  n <- readline(prompt = \"Do you want to over write the Osmar object? (y/n) \")\n  \n  if (n == \"y\"){\n    log <- setBaseOSM(ext)\n  } \n\n  else if (n == \"n\"){\n    print (\" Your osmar object will not be overwritten\")\n  } \n  \n  else {\n   print (\"Warning! Invalid input, please type 'y' or 'n'\")\n    answer()\n} \n  \n}\n\n\ncreate_osmar <- function(){\n  if (exists(\"log\")){\n  overwrite()\n  }\n  else \n    a <- 5\n}\n",
+    "created" : 1485879242898.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2745950441",
+    "id" : "1772E172",
+    "lastKnownWriteTime" : 1485937084,
+    "last_content_update" : 1485937084503,
+    "path" : "~/WUR/MEE/GeoScripting/Project/Dillen/vraag het maar.R",
+    "project_path" : "Dillen/vraag het maar.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 8,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
