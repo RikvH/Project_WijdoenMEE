@@ -25,6 +25,8 @@ source("Rfunctions/routeDetails.R")
 source("Rfunctions/CalculateAltitude.R")
 source("Rfunctions/nodeDiff.R")
 source("Rfunctions/toughness.R")
+source("Rfunctions/define_classes.R")
+source("Rfunctions/leaflet.R")
 
 ## Load packages
 packages <- c("osmar", "rgdal", "raster", "igraph", "leaflet")
@@ -64,8 +66,9 @@ route_points <- as_sp(route, "points")
 
 # Extract altitude from the nodes
 alt <- altitude(route_points)
+route_details$alt <- alt
   
-# Calculate the total difference
+# Calculate the altitude difference between nodes and the total height difference
 vdist <- nodeDiff(alt)
 sum(vdist)
 
@@ -75,10 +78,22 @@ sum(vdist)
 
 ### Section 4: Output -------------------------------------------------------------------------------------------------
 
+# Plot altitude
+plot(route_details$cdist, route_details$alt, type = "line", main = "Altitude vs the distance", 
+     xlab = "distance (m)", ylab = "altitude (m)")
+grid(col = "gray")
+
+
 # Calculate the toughness
 tough <- toughness(vdist, route_details$dist)
 tough
 
-plot(ahn)
-plot(route_points, add=T)
+# Define classes
+class <- classes(tough)
+class
+##tough_class <- cbind(tough, class)
 
+
+# Plot the route
+leafletmap <- plot_leaflet(route_points)
+leafletmap

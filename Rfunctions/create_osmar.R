@@ -25,8 +25,8 @@ overwrite <- function(ext){
   
   else if (n == "n"){
     # If no, do nothing
+    locat <- loc
     print (" Your osmar object will not be overwritten")
-    locat <- locat
     return(locat)
   } 
   
@@ -50,7 +50,7 @@ create_osmar <- function(ext){
   # If "loc" does not exist, create a new osmar object
   else {
     n <- readline(prompt = "You are about to start creating an osmar object (which is required to calculate the route). 
-This might take some time. Please hit 'enter' to continue. ")
+This might take some time. If not continued automatically, please press 'enter'. ")
     print("Your osmar object will be created, this might take some time. Please be patient.")
     loc <- setBaseOSM(ext)
   }

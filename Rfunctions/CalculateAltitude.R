@@ -11,7 +11,6 @@
 altitude <- function(routepoints){
   projroute <- spTransform(routepoints, CRS(proj4string(ahn)))
   alt <- extract(ahn, projroute, along = TRUE)
-  plot(alt, type = 'l', ylab = "Altitude (m)")
   return (alt)
 }
 
