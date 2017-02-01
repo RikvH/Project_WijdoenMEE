@@ -14,7 +14,7 @@ rm(list=ls())
 source("Rfunctions/packageloader.R")
 source("Rfunctions/cropAlt.R")
 source("Rfunctions/setBaseOSM.R")
-source("Rfunctions/findRoute.R")
+source("Rfunctions/findRoute2.R")
 source("Rfunctions/routeDetails.R")
 source("Rfunctions/CalculateAltitude.R")
 source("Rfunctions/nodeDiff.R")
@@ -36,8 +36,8 @@ loc <- setBaseOSM(ext)
 
 
 # Find shortest route
-route <- findRoute("Gosewijnstraat", "Neerhem")
-#route <- findRoute(51.9700752,5.6681647, 51.965421, 5.659061)
+#route <- findRoute("Gosewijnstraat", "Neerhem")
+route <- findRoute(50.862062, 5.833501, 50.865743, 5.832180)
 
 # Create dataframe with the route details
 route_details <- routeDetails(route)
