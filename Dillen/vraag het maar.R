@@ -4,7 +4,7 @@ overwrite <- function(){
   n <- readline(prompt = "Do you want to over write the Osmar object? (y/n) ")
   
   if (n == "y"){
-    log <- setBaseOSM(ext)
+    a <- 6
   } 
 
   else if (n == "n"){
@@ -12,17 +12,19 @@ overwrite <- function(){
   } 
   
   else {
-   print ("Warning! Invalid input, please type 'y' or 'n'")
-    answer()
-} 
+    stop ("Incorrect input")
+   # print ("Warning! Invalid input, please type 'y' or 'n'")
+   #  answer()
+}
   
 }
 
 
 create_osmar <- function(){
-  if (exists("log")){
+  if (exists("b")){
   overwrite()
   }
   else 
-    a <- 5
+    n <- readline(prompt="test")
+    b <- 5
 }

@@ -1,20 +1,20 @@
 {
     "collab_server" : "",
-    "contents" : "###################################\n## Wij doen MEE                  ##\n## Rik van Heumen & Dillen Bruil ##\n## 30 January 2017               ##\n###################################\n\n# Function to set the basemap from Open Street Map\n\n# Maps between the inserted lat and lon extremes as a vector\n\n# Format extent: lon_min, lon_max, lat_min, lat_max\n\nsetBaseOSM <- function(extent){\n  \n  src <- osmsource_api()\n  bbox <- center_bbox(extent[2], extent[1], 1700,1700)\n  loc <- get_osm(bbox, source=src)\n}\n  \n",
+    "contents" : "###################################\n## Wij doen MEE                  ##\n## Rik van Heumen & Dillen Bruil ##\n## 30 January 2017               ##\n###################################\n\n# Function to set the basemap from Open Street Map\n\n# Maps between the inserted lat and lon extremes as a vector\n\n# Format extent: lon_min, lon_max, lat_min, lat_max\n\nsetBaseOSM <- function(extent){\n  \n  src <- osmsource_api()\n  bbox <- center_bbox(extent[2], extent[1], extent[3], extent[4])\n  area <- get_osm(bbox, source=src)\n  return (area)\n}\n  \n",
     "created" : 1485877624045.000,
     "dirty" : false,
     "encoding" : "UTF-8",
     "folds" : "",
-    "hash" : "3752924221",
+    "hash" : "725668679",
     "id" : "18C112F8",
-    "lastKnownWriteTime" : 1485877688,
-    "last_content_update" : 1485877688415,
+    "lastKnownWriteTime" : 1485951379,
+    "last_content_update" : 1485951379996,
     "path" : "~/WUR/MEE/GeoScripting/Project/Rfunctions/setBaseOSM.R",
     "project_path" : "Rfunctions/setBaseOSM.R",
     "properties" : {
         "tempName" : "Untitled1"
     },
-    "relative_order" : 7,
+    "relative_order" : 5,
     "source_on_save" : false,
     "source_window" : "",
     "type" : "r_source"

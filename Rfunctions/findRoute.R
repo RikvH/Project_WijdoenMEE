@@ -8,7 +8,7 @@
 # by Open Street Map
 
 
-findRoute <- function (street_from, street_to){
+findRoute <- function (start_lat, start_lon, dest_lat, dest_lon){
   
   # Criteria which roads should be matched
   crit <- way(tags(k == "highway" | k == "cycleway"))
@@ -19,17 +19,24 @@ findRoute <- function (street_from, street_to){
   roads <- find(roads_loc, way(tags(k == "name")))
   roads <- find_down(loc, way(roads))
   roads_loc <- subset(loc, ids = roads)
-  
+
+
   # Find start node
-  road_start_node <- local({ 
-    id <- find(loc, node(tags(v == street_from)))[1]
-    find_nearest_node(loc, id, crit)})
+  nodes <- loc$nodes$attrs
+  node_num_start <- which.min((abs(nodes$lon - start_lon) + abs(nodes$lat - start_lat))/2)
+  id_start <- nodes[node_num_start, 1]
+  
+  road_start_node <- local({find_nearest_node(loc, id_start, crit)})
+  
   road_start <- subset(loc, node(road_start_node))
+
   
   # Find destination node
-  road_dest_node <- local({
-    id <- find(loc, node(tags(v == street_to)))[1]
-    find_nearest_node(loc, id, crit)})
+  node_num_dest <- which.min((abs(nodes$lon - dest_lon) + abs(nodes$lat - dest_lat))/2)
+  id_dest <- nodes[node_num_dest, 1]
+  
+  road_dest_node <- local({find_nearest_node(loc, id_dest, crit)})
+  
   road_dest <- subset(loc, node(road_dest_node))
   
   # Plotting

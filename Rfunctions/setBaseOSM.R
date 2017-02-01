@@ -13,7 +13,8 @@
 setBaseOSM <- function(extent){
   
   src <- osmsource_api()
-  bbox <- center_bbox(extent[2], extent[1], 1700,1700)
-  loc <- get_osm(bbox, source=src)
+  bbox <- center_bbox(extent[2], extent[1], extent[3], extent[4])
+  area <- get_osm(bbox, source=src)
+  return (area)
 }
   
