@@ -27,15 +27,16 @@ source("Rfunctions/nodeDiff.R")
 source("Rfunctions/toughness.R")
 
 ## Load packages
-packages <- c("osmar", "rgdal", "raster", "igraph")
+packages <- c("osmar", "rgdal", "raster", "igraph", "leaflet")
 packageloader(packages)
 
 ## Load data
 # Center coordinates and width and height of the bounding box:
-ext <- c(50.861065, 5.833611, 100, 100)
+ext <- c(50.861065, 5.833611, 1500, 1500)
 
-# Create height map
-nedCrop <- cropAlt(ext)
+# Download and create height map
+#ahn <- download_ahn(ext)
+ahn <- cropAlt(ext)
 
 
 
@@ -78,6 +79,6 @@ sum(vdist)
 tough <- toughness(vdist, route_details$dist)
 tough
 
-plot(nedCrop)
+plot(ahn)
 plot(route_points, add=T)
 

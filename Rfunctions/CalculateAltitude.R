@@ -9,14 +9,9 @@
 ## And returns a plot of the altitude
 
 altitude <- function(routepoints){
-  projroute <- spTransform(routepoints, CRS(proj4string(nedCrop)))
-  alt <- extract(nedCrop, projroute, along = TRUE)
+  projroute <- spTransform(routepoints, CRS(proj4string(ahn)))
+  alt <- extract(ahn, projroute, along = TRUE)
   plot(alt, type = 'l', ylab = "Altitude (m)")
   return (alt)
 }
-
-
-
-
-
 
