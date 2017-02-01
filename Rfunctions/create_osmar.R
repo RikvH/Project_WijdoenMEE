@@ -26,6 +26,8 @@ overwrite <- function(ext){
   else if (n == "n"){
     # If no, do nothing
     print (" Your osmar object will not be overwritten")
+    locat <- locat
+    return(locat)
   } 
   
   else {

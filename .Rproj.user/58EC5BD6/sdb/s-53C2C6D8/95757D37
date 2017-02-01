@@ -1,14 +1,14 @@
 {
     "collab_server" : "",
-    "contents" : "###################################\n## Wij doen MEE                  ##\n## Rik van Heumen & Dillen Bruil ##\n## 1 February 2017               ##\n###################################\n\n## Function that checks whether a base osm is set (loc)\n## If it does not exist, create one\n## If it does exist, ask to overwrite it (and create a new one)\n\n\n# Overwrite function\noverwrite <- function(ext){\n  \n  # Ask to overwrite\n  n <- readline(prompt = \"Do you want to over write the Osmar object? (y/n): \")\n  \n  # If yes, overwrite\n  if (n == \"y\"){\n    rm(loc, inherits= T)\n    print(\"Your osmar object will be created, this might take some time. Please be patient.\")\n    locat <- setBaseOSM(ext)\n    return(locat)\n  } \n  \n  else if (n == \"n\"){\n    # If no, do nothing\n    print (\" Your osmar object will not be overwritten\")\n  } \n  \n  else {\n    # Give an error\n    stop(\"Incorrect input, 'y' or 'n' expected but not received \")\n  } \n  \n}\n\n\n# Create function\ncreate_osmar <- function(ext){\n  \n  # If \"loc\" exists, go to the overwrite function\n  if (exists(\"loc\")){\n    loc <- overwrite(ext)\n    \n  }\n  \n  # If \"loc\" does not exist, create a new osmar object\n  else {\n    n <- readline(prompt = \"You are about to start creating an osmar object (which is required to calculate the route). \nThis might take some time. Please hit 'enter' to continue. \")\n    print(\"Your osmar object will be created, this might take some time. Please be patient.\")\n    loc <- setBaseOSM(ext)\n  }\n  return(loc)\n}\n",
+    "contents" : "###################################\n## Wij doen MEE                  ##\n## Rik van Heumen & Dillen Bruil ##\n## 1 February 2017               ##\n###################################\n\n## Function that checks whether a base osm is set (loc)\n## If it does not exist, create one\n## If it does exist, ask to overwrite it (and create a new one)\n\n\n# Overwrite function\noverwrite <- function(ext){\n  \n  # Ask to overwrite\n  n <- readline(prompt = \"Do you want to over write the Osmar object? (y/n): \")\n  \n  # If yes, overwrite\n  if (n == \"y\"){\n    rm(loc, inherits= T)\n    print(\"Your osmar object will be created, this might take some time. Please be patient.\")\n    locat <- setBaseOSM(ext)\n    return(locat)\n  } \n  \n  else if (n == \"n\"){\n    # If no, do nothing\n    print (\" Your osmar object will not be overwritten\")\n    locat <- locat\n    return(locat)\n  } \n  \n  else {\n    # Give an error\n    stop(\"Incorrect input, 'y' or 'n' expected but not received \")\n  } \n  \n}\n\n\n# Create function\ncreate_osmar <- function(ext){\n  \n  # If \"loc\" exists, go to the overwrite function\n  if (exists(\"loc\")){\n    loc <- overwrite(ext)\n    \n  }\n  \n  # If \"loc\" does not exist, create a new osmar object\n  else {\n    n <- readline(prompt = \"You are about to start creating an osmar object (which is required to calculate the route). \nThis might take some time. Please hit 'enter' to continue. \")\n    print(\"Your osmar object will be created, this might take some time. Please be patient.\")\n    loc <- setBaseOSM(ext)\n  }\n  return(loc)\n}\n",
     "created" : 1485937270180.000,
     "dirty" : false,
     "encoding" : "UTF-8",
     "folds" : "",
-    "hash" : "482986494",
+    "hash" : "2017219213",
     "id" : "95757D37",
-    "lastKnownWriteTime" : 1485952288,
-    "last_content_update" : 1485952288157,
+    "lastKnownWriteTime" : 1485966648,
+    "last_content_update" : 1485966648717,
     "path" : "~/WUR/MEE/GeoScripting/Project/Rfunctions/create_osmar.R",
     "project_path" : "Rfunctions/create_osmar.R",
     "properties" : {
