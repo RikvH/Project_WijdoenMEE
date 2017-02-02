@@ -1,0 +1,34 @@
+Route details:
+      
+The total length of the route is: 502.25 m.
+The total toughness of the route is: 0.21.
+The average toughness of the route is: 0.01.
+The total height difference is: 0 m.
+The total amount of meters climbed is: 7 m.
+            
+            
+            
+Route description:
+
+Palankastraat: cycle 27.08 m to the NNW.
+Palankastraat: cycle 7.66 m to the N.
+Palankastraat: cycle 13.52 m to the NNE.
+De Guascostraat: cycle 11.97 m to the WNW.
+De Guascostraat: cycle 19.2 m to the WNW.
+De Guascostraat: cycle 45.86 m to the WNW.
+Engelbertstraat: cycle 44.51 m to the WNW.
+Grotestraat Centrum: cycle 22.74 m to the NNE.
+Grotestraat Centrum: cycle 16.86 m to the NNE.
+Grotestraat Centrum: cycle 17.51 m to the N.
+Grotestraat Centrum: cycle 16.85 m to the N.
+Grotestraat Centrum: cycle 22.26 m to the N.
+Grotestraat Centrum: cycle 30.63 m to the N.
+Grotestraat Centrum: cycle 11.05 m to the NNE.
+Theo Dorrenplein: cycle 5.48 m to the NNE.
+Theo Dorrenplein: cycle 10.86 m to the NNE.
+Gosewijnstraat: cycle 17.18 m to the NNE.
+Passage: cycle 24.37 m to the NNE.
+Theodoor Dorrenplein: cycle 24.84 m to the NNE.
+Theodoor Dorrenplein: cycle 10.29 m to the NNE.
+Poststraat: cycle 24.11 m to the NNE.
+Lindenlaan: cycle 77.41 m to the WNW.
