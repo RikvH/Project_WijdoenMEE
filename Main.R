@@ -12,6 +12,9 @@
 ### IMPORTANT NOTE! PLEASE RUN SECTION 2 BEFORE RUNNING SECTIONS 3 AND 4.
 ### SECTION 2 MIGHT REQUIRE AN INPUT, IN CASE OF NO RESPONSE, THE SCRIPT MIGHT NOT CONTINUE TO RUN
 
+### The osmar method we use can only handle small extents, to fix this it is possible to use planet.osm
+### but this takes too much time in a project of this time span.
+
 ### Section 1: Set up -------------------------------------------------------------------------------------------------
 
 ## Route path
@@ -53,7 +56,7 @@ for (i in drc){
 ## Load data
 # Center coordinates and width and height of the bounding box:
 # Center coordinates are extracted from the start and destination point
-ext <- c((start[1]+destination[1])/2, (start[2]+destination[2])/2, 5000, 5000)
+ext <- c((start[1]+destination[1])/2, (start[2]+destination[2])/2, 1500, 1500)
 
 # Download and create height map
 ahn <- cropAlt(ext)
@@ -113,7 +116,7 @@ dev.off()
 file.copy(from = "plot.svg", to = "Output/plot.svg")
 file.remove("plot.svg")
 
-# Plot the route and add the route details and plot to the markers
+# Plot the route and add the route details and plot to the markers (you can click them)
 leafletmap <- plot_leaflet(route_points)
 saveWidget(leafletmap, file = "route.html")
 file.copy(from = "route.html", to = "Output/route.html")
