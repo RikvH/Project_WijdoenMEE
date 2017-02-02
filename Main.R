@@ -15,6 +15,13 @@
 
 ### Section 1: Set up -------------------------------------------------------------------------------------------------
 
+## Route path
+#  Lat/lon of the startpoint of your route
+start <- c(50.862062, 5.833501)
+#  Lat/lon of the destination point of your route
+destination <- c(50.865743, 5.832180)
+
+
 ## Load functions
 source("Rfunctions/packageloader.R")
 source("Rfunctions/cropAlt.R")
@@ -34,7 +41,8 @@ packageloader(packages)
 
 ## Load data
 # Center coordinates and width and height of the bounding box:
-ext <- c(50.861065, 5.833611, 1500, 1500)
+# Center coordinates are extracted from the start and destination point
+ext <- c((start[1]+destination[1])/2, (start[2]+destination[2])/2, 1500, 1500)
 
 # Download and create height map
 #ahn <- download_ahn(ext)
@@ -56,7 +64,7 @@ loc <- create_osmar(ext)
 ### Section 3: Route delivery -----------------------------------------------------------------------------------------
 
 # Find shortest route
-route <- findRoute(50.862062, 5.833501, 50.865743, 5.832180)
+route <- findRoute(start, destination)
 
 # Create dataframe with the route details
 route_details <- routeDetails(route)
@@ -70,7 +78,7 @@ route_details$alt <- alt
   
 # Calculate the altitude difference between nodes and the total height difference
 vdist <- nodeDiff(alt)
-sum(vdist)
+
 
 
 
@@ -79,7 +87,7 @@ sum(vdist)
 ### Section 4: Output -------------------------------------------------------------------------------------------------
 
 # Plot altitude
-plot(route_details$cdist, route_details$alt, type = "line", main = "Altitude vs the distance", 
+plot(route_details$cdist, route_details$alt, type = "l", main = "Altitude vs the distance", 
      xlab = "distance (m)", ylab = "altitude (m)")
 grid(col = "gray")
 
@@ -90,7 +98,7 @@ tough
 
 # Define classes
 class <- classes(tough)
-class
+
 ##tough_class <- cbind(tough, class)
 
 
