@@ -12,10 +12,10 @@
 # Overwrite function
 overwrite <- function(ext){
   
-  # Ask to overwrite
-  n <- readline(prompt = "Do you want to over write the Osmar object? (y/n): ")
+  # Ask to create a new osmar object
+  n <- readline(prompt = "Do you want to create a new Osmar object? (y/n): ")
   
-  # If yes, overwrite
+  # If yes, remove the old osmar object and create a new one
   if (n == "y"){
     rm(loc, inherits= T)
     print("Your osmar object will be created, this might take some time. Please be patient.")
@@ -38,7 +38,8 @@ overwrite <- function(ext){
 }
 
 
-# Create function
+# Check if osmar file is present and when not create a new one
+
 create_osmar <- function(ext){
   
   # If "loc" exists, go to the overwrite function
@@ -56,3 +57,5 @@ This might take some time. If not continued automatically, please press 'enter'.
   }
   return(loc)
 }
+
+  

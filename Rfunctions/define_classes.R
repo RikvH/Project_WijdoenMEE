@@ -1,3 +1,12 @@
+###################################
+## Wij doen MEE                  ##
+## Rik van Heumen & Dillen Bruil ##
+## 2 February 2017               ##
+###################################
+
+# Function that defines the classes based on the toughness
+# The classes are manually defined
+
 classes <- function(tough){
 
   class <- c(NULL)

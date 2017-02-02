@@ -65,12 +65,16 @@ routeDetails <- function(route){
   
   # Create data frame
   route_details <- data.frame(way_names, node_dirs)
+  
   # Convert negative bearing to positive bearing 
   for (i in 1:length(route_details$bear)){if (route_details$bear[i] < 0){ route_details$bear[i] <- route_details$bear[i] +360 }}
+  
   # Calculate and add cumulative distance to the data frame
   route_details$cdist <- cumsum(route_details$dist)
+  
   # Calculate and add compass direction to the data frame
   route_details$dir <- compass(route_details$bear)
+  
   # Return data frame with route details
   return(route_details)
   }

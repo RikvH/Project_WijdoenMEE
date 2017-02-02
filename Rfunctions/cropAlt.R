@@ -8,8 +8,16 @@
 # Extent based on the extent of the graph
 
 cropAlt <- function (ext){
+  
+  # Define the extent
   extent <- c(ext[1]-0.015, ext[1]+0.015, ext[2]-0.03, ext[2]+0.03)
-  ned <- getData('SRTM', lon = 5, lat = 51, path = "Data")
+  
+  # Download the West and East of the Netherlands and merge them together
+  nedW <- getData('SRTM', lon = 4, lat = 51, path = "Data")
+  nedE <- getData('SRTM', lon = 5, lat = 51, path = "Data")
+  ned <- merge(nedW, nedE)
+  
+  # Crop the Netherlands to the extent
   nedcrop <- crop(ned, extent(extent[3], extent[4], extent[1], extent[2]))
   return (nedcrop)
 }

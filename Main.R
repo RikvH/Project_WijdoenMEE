@@ -8,17 +8,17 @@
 ###        Period 3 - 2017        ###
 #####################################
 
-#rm(list=ls())
 
 ### IMPORTANT NOTE! PLEASE RUN SECTION 2 BEFORE RUNNING SECTIONS 3 AND 4.
-### SECTION 2 REQUIRES AN INPUT, IN CASE OF NO RESPONSE, THE SCRIPT WILL NOT CONTINUE TO RUN
+### SECTION 2 MIGHT REQUIRE AN INPUT, IN CASE OF NO RESPONSE, THE SCRIPT MIGHT NOT CONTINUE TO RUN
 
 ### Section 1: Set up -------------------------------------------------------------------------------------------------
 
 ## Route path
-#  Lat/lon of the startpoint of your route
+# Please select two points that are relatively close to eachother
+# Lat/lon of the startpoint of your route as a vector
 start <- c(50.862062, 5.833501)
-#  Lat/lon of the destination point of your route
+# Lat/lon of the destination point of your route as a vector
 destination <- c(50.865743, 5.832180)
 
 
@@ -33,19 +33,29 @@ source("Rfunctions/CalculateAltitude.R")
 source("Rfunctions/nodeDiff.R")
 source("Rfunctions/toughness.R")
 source("Rfunctions/define_classes.R")
+source("Rfunctions/writeDetails.R")
 source("Rfunctions/leaflet.R")
 
+
 ## Load packages
-packages <- c("osmar", "rgdal", "raster", "igraph", "leaflet")
+packages <- c("osmar", "rgdal", "raster", "igraph", "leaflet",
+              "htmlwidgets", "rmarkdown")
 packageloader(packages)
+
+## Create needed directories
+drc <- c("Data", "Output")
+for (i in drc){
+  if (!file.exists(i)){
+    dir.create(i)
+  }
+} 
 
 ## Load data
 # Center coordinates and width and height of the bounding box:
 # Center coordinates are extracted from the start and destination point
-ext <- c((start[1]+destination[1])/2, (start[2]+destination[2])/2, 1500, 1500)
+ext <- c((start[1]+destination[1])/2, (start[2]+destination[2])/2, 5000, 5000)
 
 # Download and create height map
-#ahn <- download_ahn(ext)
 ahn <- cropAlt(ext)
 
 
@@ -64,7 +74,7 @@ loc <- create_osmar(ext)
 ### Section 3: Route delivery -----------------------------------------------------------------------------------------
 
 # Find shortest route
-route <- findRoute(start, destination)
+route <- findRoute(start[1],start[2], destination[1], destination[2])
 
 # Create dataframe with the route details
 route_details <- routeDetails(route)
@@ -79,29 +89,35 @@ route_details$alt <- alt
 # Calculate the altitude difference between nodes and the total height difference
 vdist <- nodeDiff(alt)
 
+# Calculate the toughness
+tough <- toughness(vdist, route_details$dist)
 
+# Define classes
+class <- classes(tough)
 
 
 
 
 ### Section 4: Output -------------------------------------------------------------------------------------------------
+# Make output file with route details
+writeDetails()
 
-# Plot altitude
+# Plot altitude to svg file
+svg(filename = "plot.svg",
+    width = 5,
+    height = 4)
 plot(route_details$cdist, route_details$alt, type = "l", main = "Altitude vs the distance", 
      xlab = "distance (m)", ylab = "altitude (m)")
 grid(col = "gray")
+dev.off()
+file.copy(from = "plot.svg", to = "Output/plot.svg")
+file.remove("plot.svg")
 
-
-# Calculate the toughness
-tough <- toughness(vdist, route_details$dist)
-tough
-
-# Define classes
-class <- classes(tough)
-
-##tough_class <- cbind(tough, class)
-
-
-# Plot the route
+# Plot the route and add the route details and plot to the markers
 leafletmap <- plot_leaflet(route_points)
-leafletmap
+saveWidget(leafletmap, file = "route.html")
+file.copy(from = "route.html", to = "Output/route.html")
+file.remove("route.html")
+
+# Automatically open the html file in a browser
+browseURL(file.path("Output/route.html"))
