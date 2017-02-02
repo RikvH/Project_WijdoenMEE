@@ -7,12 +7,16 @@
 # Fuction to calculate the toughness of the route for each section of the route
 # Vertical distance travelled is divided by the horizontal distance traveled
 
+# Scaling factor scales the toughest climb in the Netherlands (Eyserbosweg) to 1. 
+# So toughness is the relative # toughness to the total Eyserbosweg climb 
+# (start lat/lon: 50.825165, 5.933505 and dest lat/lon: 50.831495, 5.926628)
+
 
 toughness <- function(vdist, hdist){
   
   hdist <- as.vector(hdist)
   hdist <- hdist[-1]
-  
+  scaling_factor <- 2.201715
   
   # Check if the length of the vdist and hdist vectors are equal if not abort
   if (length(vdist) != length(hdist)){
@@ -28,7 +32,7 @@ toughness <- function(vdist, hdist){
     }
     
     # Calculate the toughness for each section
-    toughness <- (vdist/ hdist)
+    toughness <- (vdist/ hdist) * scaling_factor
   }
 }
 
